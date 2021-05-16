@@ -410,7 +410,7 @@ function mascaracpf(i){
 
 function infoUser() {
     $("#profile").html(`<div class="col-12 col-md-6">
-                                <label for="nomeUser">Nome:</label>
+                                <label for="nomeUser">Usuario:</label>
                                 <input oninput="mascaranome(this)" type="text" id="nomeUser" name="titleForm" autocomplete="off" 
                                     placeholder="${personalInfo[0].username}" />
                         </div>
@@ -476,7 +476,7 @@ function infoUser() {
                                 <label for="descUser">${(accountType == "userdata") ? "Curriculo" : "Sobre a empresa"}:</label>
                                 <textarea id="descUser" name="requisForm" placeholder="">${personalInfo[0].desc}</textarea>
                         </div>
-                        <button type="button" class="btn btn-success" onclick="postUserdata()">Salvar</button>
+                        <button type="button" class="btn btn-success" onclick="postUserdata()" action="http://localhost:6789/estudante" method="post >Salvar</button>
 
                         ${(accountType == "userdata") ?
                         `<button type="button" class="btn btn-success" onclick="postUserdata()">Importar PDF</button>` : '' }
@@ -524,7 +524,7 @@ function editLog() {
                             <label for="passConf">Confirmar senha:</label>
                             <input type="password" id="passConf" oninput="mascarasenha(this)" name="titleForm" />
                         </div>
-                        <button type="button" class="btn btn-success" onclick="postUsername()">Salvar</button>`
+                        <button type="button" class="btn btn-success" onclick="postUsername()" action="http://localhost:6789/estudante" method="post >Salvar</button>`
     );
 }
 

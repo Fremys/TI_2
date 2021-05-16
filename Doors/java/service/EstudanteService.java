@@ -54,9 +54,9 @@ public class EstudanteService {
 		conexaoEstudante.conectar();
 		String cpf = request.queryParams("cpf");
 		
-		Estudante estud = conexao.get(cpf);
+		Estudante[]estud = conexao.get(cpf);
 		if(estud != null) {
-			returnValue.append(estud.toJson());
+			returnValue.append([0]estud.toJson());
 		}
 		returnValue.append("]");
 		conexao.close();

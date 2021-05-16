@@ -26,18 +26,18 @@ function prepCabecalho() {
     if (localStorage.getItem("statusLogin") != "1" && localStorage.getItem("statusLogin") != "2" &&
         sessionStorage.getItem("statusLogin") != "1" && sessionStorage.getItem("statusLogin") != "2") {
         document.querySelector(".navConect").innerHTML =
-            `<a class="nav-link responsivo" href="../src/login.html">Conectar</a>`;
+            `<a class="nav-link responsivo" href="../resources/login.html">Conectar</a>`;
         document.querySelector(".login .dropdown").innerHTML =
             `<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="../src/login.html">Conectar</a>
+                    <a class="dropdown-item" href="../resources/login.html">Conectar</a>
                 </div>`;
     } else {
         document.querySelector(".navConect").innerHTML =
-            `<a class="nav-link responsivo" href="../src/perfil.html">Meu perfil</a>
+            `<a class="nav-link responsivo" href="../resources/perfil.html">Meu perfil</a>
                 <a class="nav-link responsivo" href="#" onclick="Desconect()">Desconectar</a>`;
         document.querySelector(".login .dropdown").innerHTML =
             `<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="../src/perfil.html">Meu perfil</a>
+                    <a class="dropdown-item" href="../resources/perfil.html">Meu perfil</a>
                     <a class="dropdown-item" href="#" onclick="Desconect()">Desconectar</a>
                 </div>`;
     }
@@ -67,7 +67,7 @@ function opcoesComun() {
                         <span onclick="editLog()">Editar login</span>`);
 }
 
-
+////////////////////////////// MASCARAS DE FORMULARIO
 
 function mascaracpf(i){
    
@@ -166,9 +166,7 @@ function validacaoEmail(field) {
 ////////////////////////////// ESTUDANTE INFOS DO FORMULARIO
 
 function infoUser() {
-    $("#profile").html(`<form class="form--register"
-                        action="http://localhost:6789/estudante" method="post"
-                        id="form-add">
+    $("#profile").html(`<form action="http://localhost:6789/estudante" method="update">
                         <div class="col-12 col-md-6">
                                 <label for="nomeUser">Usuario:</label>
                                 <input oninput="mascaranome(this)" type="text" id="nomeUser" name="titleForm" autocomplete="off" 
@@ -227,34 +225,9 @@ function infoUser() {
                                 <input type="text" id="skillsUser" name="titleForm" autocomplete="on" 
                                     placeholder="${personalInfo[0].skills}" />
                         </div>
-                        <button type="button" class="btn btn-success" onclick="postUserdata()" action="http://localhost:6789/estudante" method="post >Salvar</button>
-                    <button type="button" class="btn btn-success" onclick="postUserdata()">Importar PDF</button> </form>`
+                        <button type="button" class="btn btn-success" action="http://localhost:6789/estudante" method="post >Salvar</button></form>
+                        <button type="button" class="btn btn-success">Importar PDF</button>`
     );
-}
-
-function postUserdata() {
-    if ($("#nomeUser").val().length > 0) {
-        personalInfo[0].nome = $("#nomeUser").val();
-    }
-    if ($("#emailUser").val().length > 0) {
-        personalInfo[0].email = $("#emailUser").val();
-    }
-
-    personalInfo[0].desc = $("#descUser").val();
-
-    let content = new perfil(personalInfo[0].userid, personalInfo[0].nome, personalInfo[0].sobrenome, personalInfo[0].email,
-        personalInfo[0].desc, personalInfo[0].tipo,  personalInfo[0].cpf,  personalInfo[0].idiomas, personalInfo[0].periodo,
-          personalInfo[0].telefone, personalInfo[0].linkedIn, personalInfo[0].endereco, personalInfo[0].curso,
-        personalInfo[0].skills);
-
-    $.ajax({
-        url: url + accountType + "/" + personalInfo[0].id,
-        type: 'PUT',
-        data: content
-    }).done(() => {
-        location = location;
-    });
-
 }
 
 function editLog() {
@@ -272,99 +245,29 @@ function editLog() {
                             <label for="passConf">Confirmar senha:</label>
                             <input type="password" id="passConf" oninput="mascarasenha(this)" name="titleForm" />
                         </div>
-                        <button type="button" class="btn btn-success" onclick="postUsername()" action="http://localhost:6789/estudante" method="post >Salvar</button>`
+                        <button type="button" class="btn btn-success" action="http://localhost:6789/estudante" method="post" >Salvar</button>`
     );
 }
 
-function postUsername() {
-    if ($("#username").val() == "") {
-        $("#instrucoes").addClass("erro");
-        $("#instrucoes").text("Preencha o campo de usuário");
-    }
-    else if ($("#password").val() == "") {
-        $("#instrucoes").addClass("erro");
-        $("#instrucoes").text("Preencha o campo de senha");
-    } else if ($("#passConf").val() == "") {
-        $("#instrucoes").addClass("erro");
-        $("#instrucoes").text("Confirme a senha");
-    } else if ($("#password").val() != $("#passConf").val()) {
-        $("#instrucoes").addClass("erro");
-        $("#instrucoes").text("Senhas não compatíveis");
-    }
-    else {
-        $("#instrucoes").removeClass("erro");
-        $("#instrucoes").text("");
-
-        personalInfo[0].username = $("#username").val();
-
-        $.ajax({
-            url: url + "user?username=" + personalInfo[0].username,
-        }).done(function (data) {
-            if (data.length != 0) {
-                $("#instrucoes").addClass("erro");
-                $("#instrucoes").text("Nome de usuário já utilizado");
-            } else {
-                let content = `{"username": "${personalInfo[0].username}",
-                    "password": "${$("#password").val()}",
-                    "type": "${personalInfo[0].tipo}"}`;
-                $.ajax({
-                    type: "PUT",
-                    url: url + "user/" + personalInfo[0].userid,
-                    data: JSON.parse(content)
-                }).done(() => {
-                    content = new perfil(personalInfo[0].userid, personalInfo[0].nome, personalInfo[0].sobrenome, personalInfo[0].email,
-                        personalInfo[0].desc, personalInfo[0].tipo,  personalInfo[0].cpf,  personalInfo[0].idiomas, personalInfo[0].periodo,
-                          personalInfo[0].telefone, personalInfo[0].linkedIn, personalInfo[0].endereco, personalInfo[0].curso,
-                        personalInfo[0].skills);
-                    $.ajax({
-                        url: url + accountType + "/" + personalInfo[0].id,
-                        type: 'PUT',
-                        data: content
-                    }).done(() => {
-                        location = location;
-                    });
-                });
-            }
-        });
-    }
-}
-
-function montarPerfil() {
-    let tipo = "Usuário ";
-    if (accountType == "userdata") {
-        tipo += "Comum";
-    } else { tipo += "Empresarial"; }
-
-    $("#nome").html(personalInfo[0].nome);
-    $("#profile").html(personalInfo[0].desc);
-    $("#type").html(tipo);
-}
-
 window.onload = () => {
-    let valid = true;
-    prepCabecalho();
-    if (localStorage.getItem("statusLogin") != 1 && localStorage.getItem("statusLogin") != 2) {
-        if (sessionStorage.getItem("statusLogin") != 1 && sessionStorage.getItem("statusLogin") != 2) {
-            $(".profile").html(`<div class="col-sm-12">
-            <p class="loginMsg">Parece que você não está logado. <br>Tente <a href="../src/login.html">logar</a>
-            </p>
-            </div>`);
-            valid = false;
+    if (accountType == "userdata") {
+        let valid = true;
+        prepCabecalho();
+        if (localStorage.getItem("statusLogin") != 1 && localStorage.getItem("statusLogin") != 2) {
+            if (sessionStorage.getItem("statusLogin") != 1 && sessionStorage.getItem("statusLogin") != 2) {
+                $(".profile").html(`<div class="col-sm-12">
+                <p class="loginMsg">Parece que você não está logado. <br>Tente <a href="../resources/login.html">logar</a>
+                </p>
+                </div>`);
+                valid = false;
+            } else {
+                accountType = sessionStorage.getItem("statusLogin");
+                accountId = sessionStorage.getItem("userId");
+            }
         } else {
-            accountType = sessionStorage.getItem("statusLogin");
-            accountId = sessionStorage.getItem("userId");
+            accountType = localStorage.getItem("statusLogin");
+            accountId = localStorage.getItem("userId");
         }
-    } else {
-        accountType = localStorage.getItem("statusLogin");
-        accountId = localStorage.getItem("userId");
-    }
-
-    if (valid) {
-        if (accountType == 2) {
-            accountType = "empredata";
-        } else { accountType = "userdata"; }
-
         getData();
     }
-
 }

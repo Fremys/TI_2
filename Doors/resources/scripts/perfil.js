@@ -42,18 +42,18 @@ function prepCabecalho() {
     if (localStorage.getItem("statusLogin") != "1" && localStorage.getItem("statusLogin") != "2" &&
         sessionStorage.getItem("statusLogin") != "1" && sessionStorage.getItem("statusLogin") != "2") {
         document.querySelector(".navConect").innerHTML =
-            `<a class="nav-link responsivo" href="../src/login.html">Conectar</a>`;
+            `<a class="nav-link responsivo" href="../resources/login.html">Conectar</a>`;
         document.querySelector(".login .dropdown").innerHTML =
             `<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="../src/login.html">Conectar</a>
+                    <a class="dropdown-item" href="../resources/login.html">Conectar</a>
                 </div>`;
     } else {
         document.querySelector(".navConect").innerHTML =
-            `<a class="nav-link responsivo" href="../src/perfil.html">Meu perfil</a>
+            `<a class="nav-link responsivo" href="../resources/perfil.html">Meu perfil</a>
                 <a class="nav-link responsivo" href="#" onclick="Desconect()">Desconectar</a>`;
         document.querySelector(".login .dropdown").innerHTML =
             `<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="../src/perfil.html">Meu perfil</a>
+                    <a class="dropdown-item" href="../resources/perfil.html">Meu perfil</a>
                     <a class="dropdown-item" href="#" onclick="Desconect()">Desconectar</a>
                 </div>`;
     }
@@ -598,7 +598,7 @@ window.onload = () => {
     if (localStorage.getItem("statusLogin") != 1 && localStorage.getItem("statusLogin") != 2) {
         if (sessionStorage.getItem("statusLogin") != 1 && sessionStorage.getItem("statusLogin") != 2) {
             $(".profile").html(`<div class="col-sm-12">
-            <p class="loginMsg">Parece que você não está logado. <br>Tente <a href="../src/login.html">logar</a>
+            <p class="loginMsg">Parece que você não está logado. <br>Tente <a href="../resources/login.html">logar</a>
             </p>
             </div>`);
             valid = false;

@@ -3,10 +3,10 @@ import java.sql.*;
 
 import model.*;
 
-public class DAOAlunos{
+public class DAOEstudante{
 	private Connection conexao;
 	
-	public DAOAlunos() {
+	public DAOEstudante() {
 		conexao = null;
 	}
 	
@@ -39,19 +39,19 @@ public class DAOAlunos{
 	}
 
 	
-	public Aluno[] getAll(){
-		Aluno[] alunos = null;
+	public Estudante[] getAll(){
+		Estudante[] estudante = null;
 		
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM aluno;");		
+			ResultSet rs = st.executeQuery("SELECT * FROM estudante;");		
 	         if(rs.next()){
 	             rs.last();
-	             alunos = new Aluno[rs.getRow()];
+	             estudante = new Estudante[rs.getRow()];
 	             rs.beforeFirst();
 
 	             for(int i = 0; rs.next(); i++) {
-	            	 alunos[i] = new Aluno(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), rs.getString("senha"), 
+	            	 estudante[i] = new Estudante(rs.getString("cpf"), rs.getString("usuario"), rs.getString("cpf"), rs.getString("senha"), 
 	                		                  rs.getInt("is_monitor"), rs.getString("curso"));
 	             }
 	          }
@@ -59,6 +59,19 @@ public class DAOAlunos{
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		return alunos;
+		return estudante;
+	}
+
+    private int maxId = 0;
+	public int getMaxId() {
+		try {  
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM produtos WHERE id=(SELECT MAX(id) FROM produtos);");
+			maxId = rs.getInt("id");
+			st.close();
+		} catch (SQLException u) {  
+			throw new RuntimeException(u);
+		}
+		return maxId;
 	}
 }

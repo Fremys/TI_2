@@ -27,7 +27,7 @@ function getUser(userName, senha) {
                         sessionStorage.setItem("userId", data[0].id);
                     }
 
-                    window.location.replace("../src/feed.html");
+                    window.location.replace("../resources/feed.html");
                 } else {
                     $("#instrucoes").addClass("erro");
                     $("#instrucoes").text("Senha ou usuário errados");
@@ -73,7 +73,7 @@ function registerUser(userName, senha, empresarial) {
                 }).done((data) => {
                     console.log(data);
                 });
-                window.location.replace("../src/feed.html")
+                window.location.replace("../resources/feed.html")
             });
         }
     });
@@ -350,10 +350,10 @@ window.onload = () => {
     //localStorage.setItem("statusLogin", "0");
     if (localStorage.getItem("statusLogin") == 1 ||
         localStorage.getItem("statusLogin") == 2) {
-        window.location.replace("../src/feed.html");
+        window.location.replace("../resources/feed.html");
     } else if (sessionStorage.getItem("statusLogin") == 1 ||
         sessionStorage.getItem("statusLogin") == 2) {
-        window.location.replace("../src/feed.html");
+        window.location.replace("../resources/feed.html");
     }
     else {
         $("#btnLogin").click(() => {

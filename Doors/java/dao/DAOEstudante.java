@@ -62,16 +62,4 @@ public class DAOEstudante{
 		return estudante;
 	}
 
-    private int maxId = 0;
-	public int getMaxId() {
-		try {  
-			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM produtos WHERE id=(SELECT MAX(id) FROM produtos);");
-			maxId = rs.getInt("id");
-			st.close();
-		} catch (SQLException u) {  
-			throw new RuntimeException(u);
-		}
-		return maxId;
-	}
 }

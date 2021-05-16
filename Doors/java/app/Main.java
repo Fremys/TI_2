@@ -57,7 +57,7 @@ public class Main {
 		
 		//CONEXOES DE EMPREGADOR
 		
-		post("/empregador/add", (request,response) ->  epService.publicarEmpregador(request));
+		post("/empregador/add", (request,response) ->  epService.publicarEmpregador(request,response));
 		
 		get("/empregador/getAll", (request, response) -> {
 			response.header("Content-Type", "application/json");
@@ -68,7 +68,7 @@ public class Main {
         get("/empregador/:id", (request, response) -> {
 			response.header("Content-Type", "application/json");
 			response.header("Content-Encoding", "UTF-8");
-			return epService.getEmpregador();
+			return epService.getEmpregador(request,response);
 		});
 		
         get("/empregador/update/:id", (request, response) -> epService.updateEmpregador(request, response));
@@ -81,12 +81,12 @@ public class Main {
 		
 		//CONEXOES DO ESTUDANTE
 			
-		post("/estudante/add", (request,response) ->  esService.publicarEstudante(request));
+		post("/estudante/add", (request,response) ->  esService.publicarEstudante(request,response));
 
         get("/estudante/:id", (request, response) -> {
 			response.header("Content-Type", "application/json");
 			response.header("Content-Encoding", "UTF-8");
-			return esService.getEstudante();
+			return esService.getEstudante(request, response);
 		});
 		
         get("/estudante/update/:id", (request, response) -> esService.updateEstudante(request, response));
@@ -99,12 +99,12 @@ public class Main {
 
 		//CONEXOES DAS VAGAS
 
-        post("/vaga/add", (request,response) ->  vgService.publicarVagas(request));
+        post("/vaga/add", (request,response) ->  vgService.publicarVagas(request,response));
 		
 		get("/vaga/getAll/:id_empregador", (request, response) -> {
 			response.header("Content-Type", "application/json");
 			response.header("Content-Encoding", "UTF-8");
-			return vgService.getAllVagasEmpregador();
+			return vgService.getAllVagasEmpregador(request,response);
 		});
 
         get("/vaga/getAll/", (request, response) -> {
@@ -116,7 +116,7 @@ public class Main {
         get("/vaga/:id", (request, response) -> {
 			response.header("Content-Type", "application/json");
 			response.header("Content-Encoding", "UTF-8");
-			return vgService.getVagas();
+			return vgService.getVagas(request,response);
 		});
 		
         get("/vaga/update/:id", (request, response) -> vgService.updateVagas(request, response));
@@ -129,7 +129,7 @@ public class Main {
 
 		//CONEXOES FILTROS
 		
-		post("/filtros/add", (request,response) ->  ftService.addFiltros(request));
+		post("/filtros/add", (request,response) ->  ftService.addFiltros(request,response));
 		
 		//FIM FILTROS
 
@@ -137,7 +137,7 @@ public class Main {
 
 		//CONEXOES PROCURA
 		
-		post("/procura/add", (request,response) ->  prService.addProcura(request));
+		post("/procura/add", (request,response) ->  prService.addProcura(request,response));
 		
 		//FIM PROCURA
 	}

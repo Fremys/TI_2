@@ -300,26 +300,114 @@ function postVaga() {
     }
 }
 
+function mascaracpf(i){
+   
+    var v = i.value;
+    
+    if(isNaN(v[v.length-1])){ // impede entrar outro caractere que não seja número
+       i.value = v.substring(0, v.length-1);
+       return;
+    }
+    
+    i.setAttribute("maxlength", "18");
+    if (v.length == 2 || v.length == 6) i.value += ".";
+    if (v.length == 10) i.value += "/";
+    if (v.length == 15) i.value += "-";
+ 
+ }
+ function mascaracnpj(i){
+   
+    var v = i.value;
+    
+    if(isNaN(v[v.length-1])){ // impede entrar outro caractere que não seja número
+       i.value = v.substring(0, v.length-1);
+       return;
+    }
+    
+    i.setAttribute("maxlength", "14");
+    if (v.length == 3 || v.length == 7) i.value += ".";
+    if (v.length == 11) i.value += "-";
+ 
+ }
+ function mascaratelefone(i){
+   
+    var v = i.value;
+    
+    if(isNaN(v[v.length-1])){ // impede entrar outro caractere que não seja número
+       i.value = v.substring(0, v.length-1);
+       return;
+    }
+
+    i.setAttribute("maxlength", "13");
+    if (v.length == 2) i.value += " ";
+    if (v.length == 8) i.value += "-";
+ 
+ }
+ function mascaraperiodo(i){
+   
+    var v = i.value;
+    
+    if(isNaN(v[v.length-1])){ // impede entrar outro caractere que não seja número
+       i.value = v.substring(0, v.length-1);
+       return;
+    }
+    
+    i.setAttribute("maxlength", "2"); 
+ }
+ function mascaranome(i){  
+    i.setAttribute("maxlength", "90");
+ }
+ function mascarasobrenome(i){  
+    i.setAttribute("maxlength", "90");
+ }
+ function mascarasenha(i){  
+    i.setAttribute("maxlength", "32");
+ }
+ function mascaraemail(i){  
+    i.setAttribute("maxlength", "100");
+ }
+ function mascarasite(i){  
+    i.setAttribute("maxlength", "100");
+ }
+ function mascaraperiodo(i){  
+    var v = i.value;
+    
+    if(isNaN(v[v.length-1])){ // impede entrar outro caractere que não seja número
+       i.value = v.substring(0, v.length-1);
+       return;
+    }
+    i.setAttribute("maxlength", "2");
+ }
+ function mascaracurso(i){  
+    i.setAttribute("maxlength", "30");
+ }
+ function mascaralinkedin(i){  
+    i.setAttribute("maxlength", "100");
+ }
+ function mascarausuario(i){  
+    i.setAttribute("maxlength", "20");
+ }
+
 function infoUser() {
     $("#profile").html(`<div class="col-12 col-md-6">
-                                <label for="nomeUser">Nome:</label>
-                                <input type="text" id="nomeUser" name="titleForm" autocomplete="off"
-                                    placeholder="${personalInfo[0].nome}" />
+                                <label for="nomeUser">Usuário:</label>
+                                <input oninput="mascaranome(this)" type="text" id="nomeUser" name="titleForm" autocomplete="off" 
+                                    placeholder="${personalInfo[0].username}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="emailUser">E-mail:</label>
-                                <input type="text" id="emailUser" name="titleForm" autocomplete="on"
+                                <input type="text" id="emailUser" name="titleForm" autocomplete="on" oninput="mascarausuario(this)"
                                     placeholder="${personalInfo[0].email}" />
                         </div>
                         
                         <div class="col-12 col-md-6">
                                 <label for="cpfUser">${(accountType == "userdata") ? "CPF" : "CNPJ"}:</label>
-                                <input type="text" id="cpfUser" name="titleForm" autocomplete="on"
+                                <input ${(accountType == "userdata") ? 'oninput="mascaracnpj(this)"' : 'oninput="mascaracpf(this)"'} type="text" id="cpfUser" name="titleForm" autocomplete="on"
                                     placeholder="${personalInfo[0].cpf}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="telefoneUser">Telefone:</label>
-                                <input type="text" id="telefoneUser" name="titleForm" autocomplete="on"
+                                <input oninput="mascaratelefone(this)" type="text" id="telefoneUser" name="titleForm" autocomplete="on"
                                     placeholder="${personalInfo[0].telefone}" />
                         </div>
 
@@ -327,12 +415,12 @@ function infoUser() {
                         
                         `<div class="col-12 col-md-6">
                                 <label for="nomeUser">Nome:</label>
-                                <input type="text" id="nomeUser" name="titleForm" autocomplete="on"
+                                <input type="text" id="nomeUser" name="titleForm" autocomplete="on" oninput="mascaranome(this)"
                                     placeholder="${personalInfo[0].nome}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="sobrenomeUser">Sobrenome:</label>
-                                <input type="text" id="sobrenomeUser" name="titleForm" autocomplete="on"
+                                <input type="text" id="sobrenomeUser" name="titleForm" autocomplete="on" oninput="mascarasobrenome(this)"
                                     placeholder="${personalInfo[0].sobrenome}" />
                         </div>
                         <div class="col-12 col-md-6">
@@ -342,22 +430,22 @@ function infoUser() {
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="periodoUser">Periodo:</label>
-                                <input type="text" id="periodoUser" name="titleForm" autocomplete="on"
+                                <input oninput="mascaraperiodo(this)" type="text" id="periodoUser" name="titleForm" autocomplete="on" oninput="mascaraperiodo(this)"
                                     placeholder="${personalInfo[0].periodo}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="linkedinUser">LinkedIn:</label>
-                                <input type="text" id="linkedinUser" name="titleForm" autocomplete="on"
+                                <input type="text" id="linkedinUser" name="titleForm" autocomplete="on" maxlength="100" oninput="mascaralinkedin(this)"
                                     placeholder="${personalInfo[0].linkedin}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="cursoUser">Curso:</label>
-                                <input type="text" id="cursoUser" name="titleForm" autocomplete="on"
+                                <input type="text" id="cursoUser" name="titleForm" autocomplete="on"  oninput="mascaracurso(this)"
                                     placeholder="${personalInfo[0].curso}" />
                         </div>
                         <div class="col-12">
                                 <label for="skillsUser">Skills:</label>
-                                <input type="text" id="skillsUser" name="titleForm" autocomplete="on"
+                                <input type="text" id="skillsUser" name="titleForm" autocomplete="on" 
                                     placeholder="${personalInfo[0].skills}" />
                         </div>` : ''
                         
@@ -404,16 +492,16 @@ function editLog() {
     $("#profile").html(`<span id="instrucoes"></span>
                         <div class="col-12">
                             <label for="username">Username:</label>
-                            <input type="text" id="username" name="titleForm" autocomplete="off"
+                            <input type="text" id="username" name="titleForm" autocomplete="off"  oninput="mascarausuario(this)"
                                 placeholder="${personalInfo[0].username}" />
                         </div>
                         <div class="col-12">
                             <label for="password">Senha:</label>
-                            <input type="password" id="password" name="titleForm"/>
+                            <input type="password" id="password" oninput="mascarasenha(this)" name="titleForm"/> 
                         </div>
                         <div class="col-12">
                             <label for="passConf">Confirmar senha:</label>
-                            <input type="password" id="passConf" name="titleForm" />
+                            <input type="password" id="passConf" oninput="mascarasenha(this)" name="titleForm" />
                         </div>
                         <button type="button" class="btn btn-success" onclick="postUsername()">Salvar</button>`
     );

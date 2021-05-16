@@ -42,18 +42,18 @@ function prepCabecalho() {
     if (localStorage.getItem("statusLogin") != "1" && localStorage.getItem("statusLogin") != "2" &&
         sessionStorage.getItem("statusLogin") != "1" && sessionStorage.getItem("statusLogin") != "2") {
         document.querySelector(".navConect").innerHTML =
-            `<a class="nav-link responsivo" href="../src/login.html">Conectar</a>`;
+            `<a class="nav-link responsivo" href="../resources/login.html">Conectar</a>`;
         document.querySelector(".login .dropdown").innerHTML =
             `<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="../src/login.html">Conectar</a>
+                    <a class="dropdown-item" href="../resources/login.html">Conectar</a>
                 </div>`;
     } else {
         document.querySelector(".navConect").innerHTML =
-            `<a class="nav-link responsivo" href="../src/perfil.html">Meu perfil</a>
+            `<a class="nav-link responsivo" href="../resources/perfil.html">Meu perfil</a>
                 <a class="nav-link responsivo" href="#" onclick="Desconect()">Desconectar</a>`;
         document.querySelector(".login .dropdown").innerHTML =
             `<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="../src/perfil.html">Meu perfil</a>
+                    <a class="dropdown-item" href="../resources/perfil.html">Meu perfil</a>
                     <a class="dropdown-item" href="#" onclick="Desconect()">Desconectar</a>
                 </div>`;
     }
@@ -410,7 +410,7 @@ function mascaracpf(i){
 
 function infoUser() {
     $("#profile").html(`<div class="col-12 col-md-6">
-                                <label for="nomeUser">Nome:</label>
+                                <label for="nomeUser">Usuario:</label>
                                 <input oninput="mascaranome(this)" type="text" id="nomeUser" name="titleForm" autocomplete="off" 
                                     placeholder="${personalInfo[0].username}" />
                         </div>
@@ -476,7 +476,7 @@ function infoUser() {
                                 <label for="descUser">${(accountType == "userdata") ? "Curriculo" : "Sobre a empresa"}:</label>
                                 <textarea id="descUser" name="requisForm" placeholder="">${personalInfo[0].desc}</textarea>
                         </div>
-                        <button type="button" class="btn btn-success" onclick="postUserdata()">Salvar</button>
+                        <button type="button" class="btn btn-success" onclick="postUserdata()" action="http://localhost:6789/estudante" method="post >Salvar</button>
 
                         ${(accountType == "userdata") ?
                         `<button type="button" class="btn btn-success" onclick="postUserdata()">Importar PDF</button>` : '' }
@@ -524,7 +524,7 @@ function editLog() {
                             <label for="passConf">Confirmar senha:</label>
                             <input type="password" id="passConf" oninput="mascarasenha(this)" name="titleForm" />
                         </div>
-                        <button type="button" class="btn btn-success" onclick="postUsername()">Salvar</button>`
+                        <button type="button" class="btn btn-success" onclick="postUsername()" action="http://localhost:6789/estudante" method="post >Salvar</button>`
     );
 }
 
@@ -598,7 +598,7 @@ window.onload = () => {
     if (localStorage.getItem("statusLogin") != 1 && localStorage.getItem("statusLogin") != 2) {
         if (sessionStorage.getItem("statusLogin") != 1 && sessionStorage.getItem("statusLogin") != 2) {
             $(".profile").html(`<div class="col-sm-12">
-            <p class="loginMsg">Parece que você não está logado. <br>Tente <a href="../src/login.html">logar</a>
+            <p class="loginMsg">Parece que você não está logado. <br>Tente <a href="../resources/login.html">logar</a>
             </p>
             </div>`);
             valid = false;

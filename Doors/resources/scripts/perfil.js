@@ -4,6 +4,7 @@ const url = "https://tiawdoors-api.herokuapp.com/";
 var personalInfo = [];
 var myVagas = [];
 
+
 function perfil(id, username, n, email, nome, sobrenome, desc, t,
      cpf, idiomas, periodo, telefone, linkedIn, endereco,
       curso, skills) {
@@ -409,7 +410,7 @@ function mascaracpf(i){
     }
 
 function infoUser() {
-    $("#profile").html(`<form action="http://localhost:6789/estudante" method="update">
+    $("#profile").html(`<form action="https://tiawdoors.herokuapp.com/estudante/add" method="post">
                         <div class="col-12 col-md-6">
                                 <label for="nomeUser">Usuario:</label>
                                 <input oninput="mascaranome(this)" type="text" id="nomeUser" name="usuario" autocomplete="off" 

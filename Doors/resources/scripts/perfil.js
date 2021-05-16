@@ -409,7 +409,8 @@ function mascaracpf(i){
     }
 
 function infoUser() {
-    $("#profile").html(`<div class="col-12 col-md-6">
+    $("#profile").html(`<form action="http://localhost:6789/estudante" method="update">
+                        <div class="col-12 col-md-6">
                                 <label for="nomeUser">Usuario:</label>
                                 <input oninput="mascaranome(this)" type="text" id="nomeUser" name="titleForm" autocomplete="off" 
                                     placeholder="${personalInfo[0].username}" />
@@ -468,18 +469,20 @@ function infoUser() {
                                 <label for="skillsUser">Skills:</label>
                                 <input type="text" id="skillsUser" name="titleForm" autocomplete="on" 
                                     placeholder="${personalInfo[0].skills}" />
-                        </div>` : ''
+                        </div> ` : ''
                         
                         }
-
+                        ${(accountType == "userdata") ? '' :`
                         <div class="col-12">
-                                <label for="descUser">${(accountType == "userdata") ? "Curriculo" : "Sobre a empresa"}:</label>
+                                <label for="descUser">Sobre empresa:</label>
                                 <textarea id="descUser" name="requisForm" placeholder="">${personalInfo[0].desc}</textarea>
-                        </div>
-                        <button type="button" class="btn btn-success" onclick="postUserdata()" action="http://localhost:6789/estudante" method="post >Salvar</button>
-
+                        </div> <button type="button" class="btn btn-success" >Salvar</button>
+                        </form>`}
+                        
                         ${(accountType == "userdata") ?
-                        `<button type="button" class="btn btn-success" onclick="postUserdata()">Importar PDF</button>` : '' }
+                        `<input type="button" type="submit" class="btn btn-success" value="Salvar">
+                        <button type="submit" class="btn btn-success">Importar PDF</button>
+                        </form>` : '' }
                         `
     );
 }

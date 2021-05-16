@@ -63,7 +63,65 @@ function getData() {
 }
 
 function opcoesComun() {
-    $("#opcoes").html(` <span onclick="infoUser()">Editar informações</span><br>
+    $("#opcoes").html(` <div class="col-12 col-md-6">
+                            <label for="nomeUser">Usuario:</label>
+                            <input oninput="mascaranome(this)" type="text" id="nomeUser" name="titleForm" autocomplete="off" 
+                                placeholder="${personalInfo[0].username}" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="emailUser">E-mail:</label>
+                            <input type="text" id="emailUser" name="titleForm" autocomplete="on" oninput="mascaraemail(this)" onblur="validacaoEmail(emailUser)"
+                                placeholder="${personalInfo[0].email}" />
+                                <div id="msgemail"></div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="cpfUser">CPF:</label>
+                            <input oninput="mascaracpf(this)" type="text" id="cpfUser" name="titleForm" autocomplete="on"
+                                placeholder="${personalInfo[0].cpf}" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="telefoneUser">Telefone:</label>
+                            <input oninput="mascaratelefone(this)" type="text" id="telefoneUser" name="titleForm" autocomplete="on"
+                                placeholder="${personalInfo[0].telefone}" />
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="nomeUser">Nome:</label>
+                            <input type="text" id="nomeUser" name="titleForm" autocomplete="on" oninput="mascaranome(this)"
+                                placeholder="${personalInfo[0].nome}" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="sobrenomeUser">Sobrenome:</label>
+                            <input type="text" id="sobrenomeUser" name="titleForm" autocomplete="on" oninput="mascarasobrenome(this)"
+                                placeholder="${personalInfo[0].sobrenome}" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="idiomasUser">Idiomas:</label>
+                            <input type="text" id="idiomasUser" name="titleForm" autocomplete="on"
+                                placeholder="${personalInfo[0].idiomas}" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="periodoUser">Periodo:</label>
+                            <input oninput="mascaraperiodo(this)" type="text" id="periodoUser" name="titleForm" autocomplete="on" oninput="mascaraperiodo(this)"
+                                placeholder="${personalInfo[0].periodo}" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="linkedinUser">LinkedIn:</label>
+                            <input type="text" id="linkedinUser" name="titleForm" autocomplete="on" maxlength="100" oninput="mascaralinkedin(this)"
+                                placeholder="${personalInfo[0].linkedin}" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="cursoUser">Curso:</label>
+                            <input type="text" id="cursoUser" name="titleForm" autocomplete="on"  oninput="mascaracurso(this)"
+                                placeholder="${personalInfo[0].curso}" />
+                        </div>
+                        <div class="col-12">
+                            <label for="skillsUser">Skills:</label>
+                            <input type="text" id="skillsUser" name="titleForm" autocomplete="on" 
+                                placeholder="${personalInfo[0].skills}" />
+                        </div>
+                        <span onclick="infoUser()">Editar informações</span><br>
                         <span onclick="editLog()">Editar login</span>`);
 }
 
@@ -166,7 +224,7 @@ function validacaoEmail(field) {
 ////////////////////////////// ESTUDANTE INFOS DO FORMULARIO
 
 function infoUser() {
-    $("#profile").html(`<form action="http://localhost:6789/estudante" method="update">
+    $("#profile").html(`<form action="http://localhost:6789/estudante" method="post">
                         <div class="col-12 col-md-6">
                                 <label for="nomeUser">Usuario:</label>
                                 <input oninput="mascaranome(this)" type="text" id="nomeUser" name="titleForm" autocomplete="off" 
@@ -225,9 +283,20 @@ function infoUser() {
                                 <input type="text" id="skillsUser" name="titleForm" autocomplete="on" 
                                     placeholder="${personalInfo[0].skills}" />
                         </div>
-                        <button type="button" class="btn btn-success" action="http://localhost:6789/estudante" method="post >Salvar</button></form>
-                        <button type="button" class="btn btn-success">Importar PDF</button>`
+                        <button type="button" class="btn btn-success">Importar PDF</button>
+                        <input type="submit" class="btn btn-success" value="Salvar"></form>
+                        `
     );
+}
+
+function montarPerfil() {
+    let tipo = "Usuário ";
+    if (accountType == "userdata")
+        tipo += "Comum";
+
+    $("#nome").html(personalInfo[0].nome);
+    $("#profile").html(personalInfo[0].desc);
+    $("#type").html(tipo);
 }
 
 function editLog() {
@@ -268,6 +337,13 @@ window.onload = () => {
             accountType = localStorage.getItem("statusLogin");
             accountId = localStorage.getItem("userId");
         }
-        getData();
+        if (valid) {
+            if (accountType == 2) {
+                accountType = "empredata";
+            } else { accountType = "userdata"; }
+    
+            getData();
+        }
     }
+    
 }

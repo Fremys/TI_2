@@ -387,17 +387,38 @@ function mascaracpf(i){
  function mascarausuario(i){  
     i.setAttribute("maxlength", "20");
  }
+ function validacaoEmail(field) {
+    usuario = field.value.substring(0, field.value.indexOf("@"));
+    dominio = field.value.substring(field.value.indexOf("@")+ 1, field.value.length);
+    
+    if ((usuario.length >=1) &&
+        (dominio.length >=3) &&
+        (usuario.search("@")==-1) &&
+        (dominio.search("@")==-1) &&
+        (usuario.search(" ")==-1) &&
+        (dominio.search(" ")==-1) &&
+        (dominio.search(".")!=-1) &&
+        (dominio.indexOf(".") >=1)&&
+        (dominio.lastIndexOf(".") < dominio.length - 1)) {
+    document.getElementById("msgemail").innerHTML="E-mail válido";
+    }
+    else{
+    document.getElementById("msgemail").innerHTML="<font color='red'>E-mail inválido </font>";
+    alert("E-mail invalido");
+    }
+    }
 
 function infoUser() {
     $("#profile").html(`<div class="col-12 col-md-6">
-                                <label for="nomeUser">Usuário:</label>
+                                <label for="nomeUser">Nome:</label>
                                 <input oninput="mascaranome(this)" type="text" id="nomeUser" name="titleForm" autocomplete="off" 
                                     placeholder="${personalInfo[0].username}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="emailUser">E-mail:</label>
-                                <input type="text" id="emailUser" name="titleForm" autocomplete="on" oninput="mascarausuario(this)"
+                                <input type="text" id="emailUser" name="titleForm" autocomplete="on" oninput="mascaraemail(this)" onblur="validacaoEmail(emailUser)"
                                     placeholder="${personalInfo[0].email}" />
+                                    <div id="msgemail"></div>
                         </div>
                         
                         <div class="col-12 col-md-6">

@@ -106,11 +106,11 @@ public class Main {
 			response.header("Content-Encoding", "UTF-8");
 			return vgService.getAllVagasEmpregador(request,response);
 		});
-
-        get("/vaga/getAll/", (request, response) -> {
+		
+		get("/vaga/getAll", (request, response) -> {
 			response.header("Content-Type", "application/json");
 			response.header("Content-Encoding", "UTF-8");
-			return vgService.getAllVagas();
+			return vgService.getAllVagas(request,response);
 		});
 
         get("/vaga/:id", (request, response) -> {

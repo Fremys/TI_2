@@ -35,4 +35,20 @@ public class VagasService {
 		return returnValue.toString();
 	}
 
+	public boolean add(Vagas vag) {
+		boolean status = false;
+		try {  
+			Statement st = conexao.createStatement();
+			st.executeUpdate("INSERT INTO Vagas (id, aluno_id, monitoria_id) "
+					       + "VALUES ("+vag.getId()+", "+vag.getAluno_id()+", "+vag.getMonitoria_id()+");");
+			st.close();
+			status = true;
+		} catch (SQLException u) {  
+			throw new RuntimeException(u);
+		}
+		return status;
+	}
+
+	
+
 }

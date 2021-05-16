@@ -61,4 +61,84 @@ public class DAOVagas{
 		}
 		return vagas;
 	}
+
+		public boolean add(Vagas vag) {
+		boolean status = false;
+		try {  
+			Statement st = conexao.createStatement();
+			st.executeUpdate("INSERT INTO Vagas (id, empregador_id, titulo, descricao, beneficios, requisitos, imagem, salario, categoria) "
+					       +"VALUES ("+vag.getId()+ "," +vag.getEmpregadorId()+ "," +vag.getTitulo()+ "," +vag.getDescricao()+ "," +vag.getBeneficios()+ "," +vag.getRequisitos()+ "," +vag.getImagem()+ "," +vag.getSalario()+ "," +vag.getCategorias() + ");");
+			st.close();
+			status = true;
+		} catch (SQLException u) {  
+			throw new RuntimeException(u);
+		}
+		return status;
+	}
+
+	public Vagas[] getVagas(int empregador_id) {
+		Vagas[] vagas = null;
+		
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery("SELECT * FROM vagas WHERE empregador_id = "+empregador_id+";"); // talvez filtrar por id de aluno
+	         if(rs.next()){
+	             rs.last();
+	             vagas = new Vagas[rs.getRow()];
+	             rs.beforeFirst();
+
+	             for(int i = 0; rs.next(); i++) {
+	                vagas[i] = new Vagas(rs.getInt("id"), rs.getInt("empregador_id"), rs.getString("titulo"), rs.getString("descricao"), rs.getString("beneficios"), rs.getString("requisitos"), rs.getString("imagem"), rs.getInt("salario"), rs.getString("categoria"));
+	             }
+	          }
+	          st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return vagas;
+	}
+
+	public Vagas[] getVagas(int id) {
+		Vagas[] vagas = null;
+		
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery("SELECT * FROM vagas WHERE id = "+id+";"); // talvez filtrar por id de aluno
+	         if(rs.next()){
+	             rs.last();
+	             vagas = new Vagas[rs.getRow()];
+	             rs.beforeFirst();
+
+	             for(int i = 0; rs.next(); i++) {
+	                vagas[i] = new Vagas(rs.getInt("id"), rs.getInt("empregador_id"), rs.getString("titulo"), rs.getString("descricao"), rs.getString("beneficios"), rs.getString("requisitos"), rs.getString("imagem"), rs.getInt("salario"), rs.getString("categoria"));
+	             }
+	          }
+	          st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return vagas;
+	}
+	
+	public Vagas[] getVagas(int id) {
+		Vagas[] vagas = null;
+		
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery("SELECT * FROM vagas WHERE id = "+id+";"); // talvez filtrar por id de aluno
+	         if(rs.next()){
+	             rs.last();
+	             vagas = new Vagas[rs.getRow()];
+	             rs.beforeFirst();
+
+	             for(int i = 0; rs.next(); i++) {
+	                vagas[i] = new Vagas(rs.getInt("id"), rs.getInt("empregador_id"), rs.getString("titulo"), rs.getString("descricao"), rs.getString("beneficios"), rs.getString("requisitos"), rs.getString("imagem"), rs.getInt("salario"), rs.getString("categoria"));
+	             }
+	          }
+	          st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return vagas;
+	}
 }

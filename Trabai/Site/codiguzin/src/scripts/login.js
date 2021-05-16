@@ -60,7 +60,9 @@ function registerUser(userName, senha, empresarial) {
                 if (document.getElementById('inputRemember').checked) {
                     localStorage.setItem("statusLogin", data.type);
                     localStorage.setItem("userId", data.id);
-                } else {
+                }
+                else 
+                {
                     sessionStorage.setItem("statusLogin", data.type);
                     sessionStorage.setItem("userId", data.id);
                 }
@@ -244,7 +246,6 @@ function register() {
                         if (inputPassword.value.length >= 8) {
                             btnRegistrar.disabled = false;
                         }
-
                     }
 
                     if (inputPassword.value.length >= 8 && percorrerSenha() == true) {
@@ -258,10 +259,7 @@ function register() {
                         if (inputPassword.value.length >= 8 && percorrerSenha() == true) {
                             btnRegistrar.disabled = false;
                         }
-
-
                     }
-
                 }
 
 
@@ -284,7 +282,7 @@ function register() {
         let maiuscula = 0;
         let save = '';
 
-        for (let x = 0; x < inputPassword.value.length; x = x + 1) {
+        for (let x = 0; x < inputPassword.value.length; x++) {
             save = inputPassword.value[x];
 
             if (save >= '1' && save <= '9') {
@@ -307,6 +305,10 @@ function register() {
 
         if (cont >= 1 && minuscula >= 1 && maiuscula >= 1 && inputPassword.value.length>=8) {
             result = true;
+        }
+        else
+        {
+            result = false;
         }
         return result;
     };

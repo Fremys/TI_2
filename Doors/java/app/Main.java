@@ -83,13 +83,13 @@ public class Main {
 			
 		post("/estudante/add", (request,response) ->  esService.publicarEstudante(request,response));
 
-        get("/estudante/:id", (request, response) -> {
+        get("/estudante/cpf", (request, response) -> {
 			response.header("Content-Type", "application/json");
 			response.header("Content-Encoding", "UTF-8");
 			return esService.getEstudante(request, response);
 		});
 		
-        get("/estudante/update/:id", (request, response) -> esService.updateEstudante(request, response));
+        get("/estudante/update/cpf", (request, response) -> esService.updateEstudante(request, response));
 
 		delete("/estudante/delete", (request, response) -> esService.deletarEstudante(request));//fun�ao para o monitor deletar o estudante
 		

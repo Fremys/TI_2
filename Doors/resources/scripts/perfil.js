@@ -409,26 +409,28 @@ function mascaracpf(i){
     }
 
 function infoUser() {
-    $("#profile").html(`<div class="col-12 col-md-6">
+    $("#profile").html(`<form action="http://localhost:6789/estudante" method="update">
+                        <div class="col-12 col-md-6">
                                 <label for="nomeUser">Usuario:</label>
-                                <input oninput="mascaranome(this)" type="text" id="nomeUser" name="titleForm" autocomplete="off" 
+                                <input oninput="mascaranome(this)" type="text" id="nomeUser" name="usuario" autocomplete="off" 
                                     placeholder="${personalInfo[0].username}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="emailUser">E-mail:</label>
-                                <input type="text" id="emailUser" name="titleForm" autocomplete="on" oninput="mascaraemail(this)" onblur="validacaoEmail(emailUser)"
+                                <input type="text" id="emailUser" name="email" autocomplete="on" oninput="mascaraemail(this)" onblur="validacaoEmail(emailUser)"
                                     placeholder="${personalInfo[0].email}" />
                                     <div id="msgemail"></div>
                         </div>
                         
                         <div class="col-12 col-md-6">
                                 <label for="cpfUser">${(accountType == "userdata") ? "CPF" : "CNPJ"}:</label>
-                                <input ${(accountType == "userdata") ? 'oninput="mascaracnpj(this)"' : 'oninput="mascaracpf(this)"'} type="text" id="cpfUser" name="titleForm" autocomplete="on"
+                                <input ${(accountType == "userdata") ? 'oninput="mascaracnpj(this)"' : 'oninput="mascaracpf(this)"'}
+                                 type="text" id="cpfUser"${(accountType == "userdata") ? 'name="cnpj"' : 'name="cpf"'}  autocomplete="on"
                                     placeholder="${personalInfo[0].cpf}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="telefoneUser">Telefone:</label>
-                                <input oninput="mascaratelefone(this)" type="text" id="telefoneUser" name="titleForm" autocomplete="on"
+                                <input oninput="mascaratelefone(this)" type="text" id="telefoneUser" name="telefone" autocomplete="on"
                                     placeholder="${personalInfo[0].telefone}" />
                         </div>
 
@@ -436,50 +438,52 @@ function infoUser() {
                         
                         `<div class="col-12 col-md-6">
                                 <label for="nomeUser">Nome:</label>
-                                <input type="text" id="nomeUser" name="titleForm" autocomplete="on" oninput="mascaranome(this)"
+                                <input type="text" id="nomeUser" name="nome" autocomplete="on" oninput="mascaranome(this)"
                                     placeholder="${personalInfo[0].nome}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="sobrenomeUser">Sobrenome:</label>
-                                <input type="text" id="sobrenomeUser" name="titleForm" autocomplete="on" oninput="mascarasobrenome(this)"
+                                <input type="text" id="sobrenomeUser" name="sobrenome" autocomplete="on" oninput="mascarasobrenome(this)"
                                     placeholder="${personalInfo[0].sobrenome}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="idiomasUser">Idiomas:</label>
-                                <input type="text" id="idiomasUser" name="titleForm" autocomplete="on"
+                                <input type="text" id="idiomasUser" name="idiomas" autocomplete="on"
                                     placeholder="${personalInfo[0].idiomas}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="periodoUser">Periodo:</label>
-                                <input oninput="mascaraperiodo(this)" type="text" id="periodoUser" name="titleForm" autocomplete="on" oninput="mascaraperiodo(this)"
+                                <input oninput="mascaraperiodo(this)" type="text" id="periodoUser" name="periodo" autocomplete="on" oninput="mascaraperiodo(this)"
                                     placeholder="${personalInfo[0].periodo}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="linkedinUser">LinkedIn:</label>
-                                <input type="text" id="linkedinUser" name="titleForm" autocomplete="on" maxlength="100" oninput="mascaralinkedin(this)"
+                                <input type="text" id="linkedinUser" name="linkedin" autocomplete="on" maxlength="100" oninput="mascaralinkedin(this)"
                                     placeholder="${personalInfo[0].linkedin}" />
                         </div>
                         <div class="col-12 col-md-6">
                                 <label for="cursoUser">Curso:</label>
-                                <input type="text" id="cursoUser" name="titleForm" autocomplete="on"  oninput="mascaracurso(this)"
+                                <input type="text" id="cursoUser" name="curso" autocomplete="on"  oninput="mascaracurso(this)"
                                     placeholder="${personalInfo[0].curso}" />
                         </div>
                         <div class="col-12">
                                 <label for="skillsUser">Skills:</label>
-                                <input type="text" id="skillsUser" name="titleForm" autocomplete="on" 
+                                <input type="text" id="skillsUser" name="skills" autocomplete="on" 
                                     placeholder="${personalInfo[0].skills}" />
-                        </div>` : ''
+                        </div> ` : ''
                         
                         }
-
+                        ${(accountType == "userdata") ? '' :`
                         <div class="col-12">
-                                <label for="descUser">${(accountType == "userdata") ? "Curriculo" : "Sobre a empresa"}:</label>
+                                <label for="descUser">Sobre empresa:</label>
                                 <textarea id="descUser" name="requisForm" placeholder="">${personalInfo[0].desc}</textarea>
-                        </div>
-                        <button type="button" class="btn btn-success" onclick="postUserdata()" action="http://localhost:6789/estudante" method="post >Salvar</button>
-
+                        </div> <button type="button" class="btn btn-success" >Salvar</button>
+                        </form>`}
+                        
                         ${(accountType == "userdata") ?
-                        `<button type="button" class="btn btn-success" onclick="postUserdata()">Importar PDF</button>` : '' }
+                        `<input type="submit" class="btn btn-success" value="Salvar">
+                        <button type="submit" class="btn btn-success">Importar PDF</button>
+                        </form>` : '' }
                         `
     );
 }

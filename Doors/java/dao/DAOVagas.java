@@ -76,7 +76,7 @@ public class DAOVagas{
 		return status;
 	}
 
-	public Vagas[] getVagas(int empregador_id) {
+	public Vagas[] getAllVagasEmpregador(int empregador_id) {
 		Vagas[] vagas = null;
 		
 		try {
@@ -119,26 +119,41 @@ public class DAOVagas{
 		}
 		return vagas;
 	}
-	
-	public Vagas[] getVagas(int id) {
-		Vagas[] vagas = null;
-		
-		try {
-			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM vagas WHERE id = "+id+";"); // talvez filtrar por id de aluno
-	         if(rs.next()){
-	             rs.last();
-	             vagas = new Vagas[rs.getRow()];
-	             rs.beforeFirst();
 
-	             for(int i = 0; rs.next(); i++) {
-	                vagas[i] = new Vagas(rs.getInt("id"), rs.getInt("empregador_id"), rs.getString("titulo"), rs.getString("descricao"), rs.getString("beneficios"), rs.getString("requisitos"), rs.getString("imagem"), rs.getInt("salario"), rs.getString("categoria"));
-	             }
-	          }
-	          st.close();
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
+	public boolean update(Vagas vag) {
+		boolean status = false;
+		try {  
+			Statement st = conexao.createStatement();
+			String sql = "UPDATE vaga SET
+			id = '" +vag.getId()+ "', 
+			empregador_id '" +vag.getEmpregadorId()+ "', 
+			titulo = '"+vag.getTitulo()+ "', 
+			descricao = '" +vag.getDescricao()+ "', 
+			beneficios = '"+vag.getBeneficios()+ "', 
+			requisitos = '" +vag.getRequisitos()+ "', 
+			imagem = '" +vag.getImagem()+ "', 
+			salario = '" +vag.getSalario()+ "', 
+			categorias '" +vag.getCategorias() ", 
+			WHERE cpf = " + estud.getCpf();
+			st.executeUpdate(sql);
+			st.close();
+			status = true;
+		} catch (SQLException u) {  
+			throw new RuntimeException(u);
 		}
-		return vagas;
+		return status;
+	}
+
+	public boolean delete(int id) {
+		boolean status = false;
+		try {  
+			Statement st = conexao.createStatement();
+			st.executeUpdate("DELETE FROM vagas WHERE id = "+id+";");
+			st.close();
+			status = true;
+		} catch (SQLException u) {  
+			throw new RuntimeException(u);
+		}
+		return status;
 	}
 }

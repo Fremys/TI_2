@@ -1,1 +1,1 @@
-<?php require_once ("doors/resources/home.php") ?> 
+<?php require_once ("doors/src/main/resources/home.php") ?> 

@@ -1,3 +1,3 @@
 <?php 
-  require_once ("/src/main/resources/")
+  require_once ("doors/src/main/resources/")
 ?> 

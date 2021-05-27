@@ -12,8 +12,8 @@ def main():
     
         # Get configuration settings 
         load_dotenv()
-        form_endpoint = os.getenv('FORM_ENDPOINT')
-        form_key = os.getenv('FORM_KEY')
+        form_endpoint = os.getenv('https://doors1.cognitiveservices.azure.com/')
+        form_key = os.getenv('70b2796924584d8da912296e8dea613a')
         trainingDataUrl = os.getenv('STORAGE_URL')
 
         # Authenticate Form Training Client

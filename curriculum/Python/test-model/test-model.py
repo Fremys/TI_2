@@ -12,14 +12,14 @@ def main():
     
         # Get configuration settings 
         load_dotenv()
-        form_endpoint = os.getenv('FORM_ENDPOINT')
-        form_key = os.getenv('FORM_KEY')
+        form_endpoint = os.getenv('https://doors1.cognitiveservices.azure.com/')
+        form_key = os.getenv('70b2796924584d8da912296e8dea613a')
         
         # Create client using endpoint and key
         form_recognizer_client = FormRecognizerClient(form_endpoint, AzureKeyCredential(form_key))
         form_training_client = FormTrainingClient(form_endpoint, AzureKeyCredential(form_key))
 
-        # Model ID from when you trained your model.
+        # Model ID from when your trained your model.
         model_id = os.getenv('MODEL_ID')
 
         # Test trained model with a new form 

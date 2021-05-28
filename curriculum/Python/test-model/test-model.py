@@ -1,6 +1,5 @@
-import os 
-from dotenv import load_dotenv
 
+import os
 from azure.core.exceptions import ResourceNotFoundError
 from azure.ai.formrecognizer import FormRecognizerClient
 from azure.ai.formrecognizer import FormTrainingClient
@@ -11,16 +10,15 @@ def main():
     try: 
     
         # Get configuration settings 
-        load_dotenv()
-        form_endpoint = os.getenv('https://doors1.cognitiveservices.azure.com/')
-        form_key = os.getenv('70b2796924584d8da912296e8dea613a')
+        form_endpoint = "https://doors1.cognitiveservices.azure.com/"
+        form_key = "70b2796924584d8da912296e8dea613a"
         
         # Create client using endpoint and key
         form_recognizer_client = FormRecognizerClient(form_endpoint, AzureKeyCredential(form_key))
         form_training_client = FormTrainingClient(form_endpoint, AzureKeyCredential(form_key))
 
         # Model ID from when your trained your model.
-        model_id = os.getenv('MODEL_ID')
+        model_id = "8bf5a901-3ef6-4d1b-8a5b-f82ca3c1b05c"
 
         # Test trained model with a new form 
         with open('test1.jpg', "rb") as f: 

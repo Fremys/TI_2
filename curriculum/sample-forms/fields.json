@@ -1,17 +1,28 @@
 {
+    "$schema": "https://schema.cognitiveservices.azure.com/formrecognizer/2021-03-01/fields.json",
     "fields": [
         {
-            "fieldKey": "Endereco",
+            "fieldKey": "Curso",
             "fieldType": "string",
             "fieldFormat": "not-specified"
         },
         {
-            "fieldKey": "Telefone",
-            "fieldType": "number",
+            "fieldKey": "Periodo",
+            "fieldType": "string",
             "fieldFormat": "not-specified"
         },
         {
-            "fieldKey": "Linkedin",
+            "fieldKey": "Nome",
+            "fieldType": "string",
+            "fieldFormat": "not-specified"
+        },
+        {
+            "fieldKey": "Sobrenome",
+            "fieldType": "string",
+            "fieldFormat": "not-specified"
+        },
+        {
+            "fieldKey": "Skills",
             "fieldType": "string",
             "fieldFormat": "not-specified"
         },
@@ -21,19 +32,25 @@
             "fieldFormat": "not-specified"
         },
         {
-            "fieldKey": "Curso",
+            "fieldKey": "Email",
             "fieldType": "string",
             "fieldFormat": "not-specified"
         },
         {
-            "fieldKey": "Periodo",
-            "fieldType": "number",
+            "fieldKey": "Linkedin",
+            "fieldType": "string",
             "fieldFormat": "not-specified"
         },
         {
-            "fieldKey": "Skills",
+            "fieldKey": "Telefone",
+            "fieldType": "string",
+            "fieldFormat": "not-specified"
+        },
+        {
+            "fieldKey": "Endereco",
             "fieldType": "string",
             "fieldFormat": "not-specified"
         }
-    ]
+    ],
+    "definitions": {}
 }
